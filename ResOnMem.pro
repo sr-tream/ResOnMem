@@ -25,10 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        userinterface.cpp
+        userinterface.cpp \
+    codegenerator.cpp
 
 HEADERS += \
-        userinterface.h
+        userinterface.h \
+    codegenerator.h
 
 FORMS += \
         userinterface.ui
