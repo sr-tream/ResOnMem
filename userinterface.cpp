@@ -16,12 +16,6 @@ void UserInterface::closeEvent(QCloseEvent *e)
     //settings->sync();
 }
 
-void UserInterface::on_g_resName_textEdited(const QString &arg1)
-{
-    if (!arg1.isEmpty())
-        settings->setValue("GlobalNamespace", arg1);
-}
-
 void UserInterface::on_inc_gNS_toggled(bool checked)
 {
     settings->setValue("UseGlobalNamespace", checked);
@@ -42,9 +36,25 @@ void UserInterface::on_selectFile_clicked()
 void UserInterface::on_resName_textChanged(const QString &arg1)
 {
     QString name = arg1;
-    for(QChar &ch: name){
+    removePunct(name);
+    if (name != arg1)
+        resName->setText(name);
+}
+
+void UserInterface::on_g_resName_textChanged(const QString &arg1)
+{
+    QString name = arg1;
+    removePunct(name);
+    if (name != arg1)
+        g_resName->setText(name);
+    if (!name.isEmpty())
+        settings->setValue("GlobalNamespace", name);
+}
+
+void UserInterface::removePunct(QString &str)
+{
+    for(QChar &ch: str){
         if (ch.isPunct() && ch != '_')
             ch = '_';
     }
-    resName->setText(name);
 }
