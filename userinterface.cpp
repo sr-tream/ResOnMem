@@ -26,3 +26,25 @@ void UserInterface::on_inc_gNS_toggled(bool checked)
 {
     settings->setValue("UseGlobalNamespace", checked);
 }
+
+void UserInterface::on_selectFile_clicked()
+{
+    QFileInfo file = QFileDialog::getOpenFileName(this, "Select file for resource", QDir::currentPath(), "*.*");
+
+    if (!file.isFile())
+        return;
+
+    filePath->setText(file.filePath());
+    if (resName->text().isEmpty())
+        resName->setText(file.fileName());
+}
+
+void UserInterface::on_resName_textChanged(const QString &arg1)
+{
+    QString name = arg1;
+    for(QChar &ch: name){
+        if (ch.isPunct() && ch != '_')
+            ch = '_';
+    }
+    resName->setText(name);
+}
