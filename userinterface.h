@@ -4,6 +4,7 @@
 #include "ui_userinterface.h"
 #include <QSettings>
 #include <QFileDialog>
+#include "codegenerator.h"
 
 class UserInterface : public QWidget, private Ui::UserInterface
 {
@@ -24,8 +25,11 @@ private slots:
 
     void on_g_resName_textChanged(const QString &arg1);
 
+    void on_generate_clicked();
+
 private:
     QSettings *settings;
+    CodeGenerator *cgen = nullptr;
 
     void removePunct(QString &str);
 };

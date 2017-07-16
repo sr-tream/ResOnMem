@@ -31,6 +31,10 @@ void UserInterface::on_selectFile_clicked()
     filePath->setText(file.filePath());
     if (resName->text().isEmpty())
         resName->setText(file.fileName());
+
+    if (cgen != nullptr)
+        delete cgen;
+    cgen = new CodeGenerator(file.filePath());
 }
 
 void UserInterface::on_resName_textChanged(const QString &arg1)
@@ -61,5 +65,13 @@ void UserInterface::removePunct(QString &str)
 
 void UserInterface::on_generate_clicked()
 {
+    if (cgen == nullptr)
+        return;
+
+    if (inc_gNS->isChecked())
+        cgen->generateCode(resName->text(), g_resName->text());
+    else cgen->generateCode(resName->text(), "");
     QFileInfo file = QFileDialog::getSaveFileName(this, "Generate resource file", QDir::currentPath(), "*.hpp");
+
+    // TODO: save file
 }
