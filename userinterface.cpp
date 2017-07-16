@@ -58,3 +58,8 @@ void UserInterface::removePunct(QString &str)
             ch = '_';
     }
 }
+
+void UserInterface::on_generate_clicked()
+{
+    QFileInfo file = QFileDialog::getSaveFileName(this, "Generate resource file", QDir::currentPath(), "*.hpp");
+}
