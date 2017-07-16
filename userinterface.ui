@@ -113,6 +113,9 @@
    </item>
    <item row="4" column="0">
     <widget class="QPushButton" name="generate">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
       <string>Generate resource file</string>
      </property>

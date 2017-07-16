@@ -39,6 +39,9 @@ void UserInterface::on_selectFile_clicked()
 
 void UserInterface::on_resName_textChanged(const QString &arg1)
 {
+    if (arg1.isEmpty())
+        generate->setEnabled(false);
+    else generate->setEnabled(true);
     QString name = arg1;
     removePunct(name);
     if (name != arg1)
@@ -68,10 +71,19 @@ void UserInterface::on_generate_clicked()
     if (cgen == nullptr)
         return;
 
+    QStringList code;
     if (inc_gNS->isChecked())
-        cgen->generateCode(resName->text(), g_resName->text());
-    else cgen->generateCode(resName->text(), "");
-    QFileInfo file = QFileDialog::getSaveFileName(this, "Generate resource file", QDir::currentPath(), "*.hpp");
+        code = cgen->generateCode(resName->text(), g_resName->text());
+    else code = cgen->generateCode(resName->text(), "");
+    QString fileName = QFileDialog::getSaveFileName(this, "Generate resource file", QDir::currentPath(), "*.hpp");
 
-    // TODO: save file
+    QFile file(fileName);
+    file.open(QIODevice::WriteOnly);
+    if (!file.isOpen())
+        throw "Can not open file";
+    if (!file.isWritable())
+        throw "Can not write file";
+    for (QString str: code)
+        file.write(str.toStdString().c_str());
+    file.close();
 }
