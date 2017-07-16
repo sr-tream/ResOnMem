@@ -11,11 +11,16 @@ CodeGenerator::CodeGenerator(QString filePath, bool useSpaces)
         throw "Can not open file";
     if (!file->isReadable())
         throw "Can not read file";
+    fileArray.clear();
+    code.clear();
     fileArray = file->readAll();
 }
 
 QStringList CodeGenerator::generateCode(QString NS, QString gNS)
 {
+    writeString("#ifndef " + gNS + "_" + NS + "_H");
+    writeString("#define " + gNS + "_" + NS + "_H");
+    writeString("#include <fstream>");
     if (!gNS.isEmpty()){
         writeString("namespace " + gNS + "{");
         setOffset(1);
@@ -31,8 +36,8 @@ QStringList CodeGenerator::generateCode(QString NS, QString gNS)
         if (i < octets){
             QString tmp;
             if (c == fileArray.size() - 1)
-                tmp.sprintf("0x%02X", ch);
-            else tmp.sprintf("0x%02X, ", ch);
+                tmp.sprintf("0x%02X", (unsigned char)ch);
+            else tmp.sprintf("0x%02X, ", (unsigned char)ch);
             dataLine += tmp;
         } else {
             writeString(dataLine);
@@ -48,7 +53,21 @@ QStringList CodeGenerator::generateCode(QString NS, QString gNS)
     writeString("}; // data");
     writeString("const unsigned long long size = " + QString::number(fileArray.size()) + "; // bytes");
 
-    // TODO: generate save code
+    writeString("bool save(const char* fileName){");
+    setOffset(offset() + 1);
+    writeString("std::ofstream f(fileName, std::ios::binary);");
+    writeString("if (!f.is_open())");
+    setOffset(offset() + 1);
+    writeString("return false;");
+    setOffset(offset() - 1);
+    writeString("for (unsigned long long i = 0; i < size; ++i)");
+    setOffset(offset() + 1);
+    writeString("f << data[i];");
+    setOffset(offset() - 1);
+    writeString("f.close();");
+    writeString("return true;");
+    setOffset(offset() - 1);
+    writeString("}");
 
     setOffset(offset() - 1);
     writeString("} // " + NS);
@@ -56,6 +75,7 @@ QStringList CodeGenerator::generateCode(QString NS, QString gNS)
         setOffset(0);
         writeString("} // " + gNS);
     }
+    writeString("#endif // " + gNS + "_" + NS + "_H");
 
     return code;
 }
