@@ -13,9 +13,6 @@ class UserInterface : public QWidget, private Ui::UserInterface
 public:
     explicit UserInterface(QWidget *parent = 0);
 
-protected:
-    void closeEvent(QCloseEvent *e) override;
-
 private slots:
     void on_inc_gNS_toggled(bool checked);
 

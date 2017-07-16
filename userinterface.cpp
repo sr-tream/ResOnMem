@@ -11,11 +11,6 @@ UserInterface::UserInterface(QWidget *parent) :
         g_resName->setText("ResOnMem");
 }
 
-void UserInterface::closeEvent(QCloseEvent *e)
-{
-    //settings->sync();
-}
-
 void UserInterface::on_inc_gNS_toggled(bool checked)
 {
     settings->setValue("UseGlobalNamespace", checked);
