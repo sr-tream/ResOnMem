@@ -9,7 +9,7 @@ class CodeGenerator
 public:
     CodeGenerator(QString filePath, bool useSpaces = 1);
 
-    QStringList generateCode(QString NS, QString gNS);
+	QStringList generateCode(QString NS);
 
     void setUseSpaces(bool state);
     bool isUseSpaces();

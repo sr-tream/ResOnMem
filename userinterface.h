@@ -14,21 +14,23 @@ public:
     explicit UserInterface(QWidget *parent = 0);
 
 private slots:
-    void on_inc_gNS_toggled(bool checked);
-
     void on_selectFile_clicked();
 
-    void on_resName_textChanged(const QString &arg1);
-
-    void on_g_resName_textChanged(const QString &arg1);
+	void on_resName_textChanged(const QString &arg1);
 
     void on_generate_clicked();
+
+	void on_useSpaces_toggled(bool checked);
+
+	void on_spacesCount_valueChanged(int arg1);
+
+	void on_columnsCount_valueChanged(int arg1);
 
 private:
     QSettings *settings;
     CodeGenerator *cgen = nullptr;
 
-    void removePunct(QString &str);
+	void removePunct(QString &str);
 };
 
 #endif // USERINTERFACE_H

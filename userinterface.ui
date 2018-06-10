@@ -2,34 +2,29 @@
 <ui version="4.0">
  <class>UserInterface</class>
  <widget class="QWidget" name="UserInterface">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>408</width>
-    <height>200</height>
-   </rect>
-  </property>
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>200</height>
+    <height>100</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>16777215</width>
-    <height>200</height>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>UserInterface</string>
+   <string>ResOnMem</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4">
+  <layout class="QGridLayout" name="gridLayout_5">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="2">
       <widget class="QToolButton" name="selectFile">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>...</string>
        </property>
@@ -37,6 +32,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="filePath">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File path&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -57,6 +55,101 @@
      </item>
     </layout>
    </item>
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCheckBox" name="useSpaces">
+       <property name="text">
+        <string>Use soft tabs</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spacesCount">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Count spaces in one soft tab.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default:&lt;/span&gt; 4&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Min:&lt;/span&gt; 1&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Max:&lt;/span&gt; 8&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>8</number>
+       </property>
+       <property name="value">
+        <number>4</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Columns of HEX data&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Columns:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="columnsCount">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Count columns in HEX data.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default:&lt;/span&gt; 12&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Min:&lt;/span&gt; 1&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Max:&lt;/span&gt; 64&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>64</number>
+         </property>
+         <property name="value">
+          <number>12</number>
+         </property>
+         <property name="displayIntegerBase">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="generate">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Generate resource file</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
@@ -67,59 +160,22 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Punct &lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;:&lt;/span&gt; is separator for name spaces&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Resource name:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="resName"/>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
-    <widget class="QCheckBox" name="inc_gNS">
-     <property name="text">
-      <string>Include global resource namespace</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Global resource name:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="g_resName">
-       <property name="text">
-        <string/>
+      <widget class="QLineEdit" name="resName">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Punct &lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;:&lt;/span&gt; is separator for name spaces&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="4" column="0">
-    <widget class="QPushButton" name="generate">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>Generate resource file</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>
@@ -127,34 +183,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>inc_gNS</sender>
+   <sender>useSpaces</sender>
    <signal>toggled(bool)</signal>
-   <receiver>g_resName</receiver>
+   <receiver>spacesCount</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>202</x>
-     <y>126</y>
+     <x>70</x>
+     <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>260</x>
-     <y>148</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>inc_gNS</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_3</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>14</x>
-     <y>128</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>15</x>
-     <y>154</y>
+     <x>124</x>
+     <y>107</y>
     </hint>
    </hints>
   </connection>

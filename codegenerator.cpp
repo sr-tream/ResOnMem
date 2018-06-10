@@ -17,17 +17,18 @@ CodeGenerator::CodeGenerator(QString filePath, bool useSpaces)
 	fileArray = file->readAll();
 }
 
-QStringList CodeGenerator::generateCode(QString NS, QString gNS)
+QStringList CodeGenerator::generateCode(QString NS)
 {
-	writeString("#ifndef " + gNS + "_" + NS + "_H");
-	writeString("#define " + gNS + "_" + NS + "_H");
+	code.clear();
+	auto NSList = NS.split(':');
+	NS.replace(':', '_');
+	writeString("#ifndef " + NS + "_H");
+	writeString("#define " + NS + "_H");
 	writeString("#include <fstream>");
-	if (!gNS.isEmpty()){
-		writeString("namespace " + gNS + "{");
-		setOffset(1);
+	for (int i = 0; i < NSList.count(); ++i){
+		writeString("namespace " + NSList[i] + "{");
+		setOffset(i + 1);
 	}
-	writeString("namespace " + NS + "{");
-	setOffset(offset() + 1);
 
 	writeString("const unsigned char data[] = {");
 	setOffset(offset() + 1);
@@ -72,13 +73,11 @@ QStringList CodeGenerator::generateCode(QString NS, QString gNS)
 	setOffset(offset() - 1);
 	writeString("}");
 
-	setOffset(offset() - 1);
-	writeString("} // " + NS);
-	if (!gNS.isEmpty()){
-		setOffset(0);
-		writeString("} // " + gNS);
+	for (int i = NSList.count(); i > 0; --i){
+		setOffset(i - 1);
+		writeString("} // " + NSList[i - 1]);
 	}
-	writeString("#endif // " + gNS + "_" + NS + "_H");
+	writeString("#endif // " + NS + "_H");
 
 	return code;
 }
